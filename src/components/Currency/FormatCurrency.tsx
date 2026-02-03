@@ -17,6 +17,7 @@ function FormatCurrency({
   signDisplay,
   useGrouping = true,
   notation,
+  useCurrencySymbol = false,
   size = "md",
   emphasis = "normal",
 }: FormatCurrencyProps) {
@@ -34,6 +35,7 @@ function FormatCurrency({
   const resolvedSignDisplay = showSign ? "always" : signDisplay;
   const resolvedNotation = notation ?? (compact ? "compact" : "standard");
   const isNgn = currency.toUpperCase() === "NGN";
+  const currencySymbol = useCurrencySymbol ? "₦" : "N";
   const signPrefix = numericValue < 0 ? "-" : showSign ? "+" : "";
   const absoluteValue = Math.abs(numericValue);
 
@@ -59,7 +61,7 @@ function FormatCurrency({
     const resolvedMaxFractionDigits =
       maximumFractionDigits ?? (showFraction ? 2 : 0);
 
-    if (unit) {
+    if (compact && unit) {
       const compactValue = absoluteValue / unit.value;
       const compactMin = minimumFractionDigits ?? 0;
       const compactMax =
@@ -75,11 +77,16 @@ function FormatCurrency({
       return (
         <span
           className={classNames}
-          title={title ?? `${signPrefix}N${compactText}${unit.suffix}`}
-          aria-label={`${signPrefix}N${compactText}${unit.suffix}`}
+          title={
+            title ??
+            `${signPrefix}${currencySymbol}${compactText}${unit.suffix}`
+          }
+          aria-label={`${signPrefix}${currencySymbol}${compactText}${unit.suffix}`}
         >
           <span className={styles.integer}>
-            {signPrefix}N{compactText}
+            {signPrefix}
+            {currencySymbol}
+            {compactText}
             {unit.suffix}
           </span>
           {showCurrencyCode ? (
@@ -99,11 +106,13 @@ function FormatCurrency({
     return (
       <span
         className={classNames}
-        title={title ?? `${signPrefix}N${numberText}`}
-        aria-label={`${signPrefix}N${numberText}`}
+        title={title ?? `${signPrefix}${currencySymbol}${numberText}`}
+        aria-label={`${signPrefix}${currencySymbol}${numberText}`}
       >
         <span className={styles.integer}>
-          {signPrefix}N{numberText}
+          {signPrefix}
+          {currencySymbol}
+          {numberText}
         </span>
         {showCurrencyCode ? (
           <span className={styles.code_badge}>{currency.toUpperCase()}</span>

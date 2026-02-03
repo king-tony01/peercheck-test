@@ -9,6 +9,8 @@ interface FormatCurrencyProps {
   compact?: boolean;
   showCurrencyCode?: boolean;
   showFraction?: boolean;
+  /** When true for NGN, use the ₦ symbol instead of the plain 'N' */
+  useCurrencySymbol?: boolean;
   showSign?: boolean;
   fallback?: string;
   className?: string;

@@ -125,4 +125,24 @@
   justify-content: center;
   width: 100%;
   margin-top: 2.5rem;
+}
+
+.card_chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.card_chart h2 {
+  width: 100%;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+.card_chart .cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
 }/*# sourceMappingURL=Chart.module.css.map */

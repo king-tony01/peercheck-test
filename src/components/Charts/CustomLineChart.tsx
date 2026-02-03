@@ -226,7 +226,12 @@ function CustomLineChart({
             <div key={i} className={styles.legend_item}>
               <div
                 className={styles.legend_dot}
-                style={{ background: s.color }}
+                style={{
+                  background: s.color,
+                  borderRadius: 0,
+                  width: 16,
+                  height: 16,
+                }}
               />
               <span className={styles.legend_label}>{s.name}</span>
             </div>

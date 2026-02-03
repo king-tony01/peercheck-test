@@ -15,6 +15,10 @@ import InfoTriangle from "@/icons/InfoTrangle";
 import CustomLineChart from "@/components/Charts/CustomLineChart";
 import DynamicTable from "@/components/Tables/DynamicTable";
 import FormatCurrency from "@/components/Currency/FormatCurrency";
+import CardChart from "@/components/Charts/CardChart";
+import { PercentageFormatter } from "@/utils/PercentageFormatter";
+import PayGap from "./PayGap";
+import RecentSubmission from "./RecentSubmission";
 
 function SalaryInsights() {
   const overviewCards: MetricCard[] = [
@@ -170,6 +174,59 @@ function SalaryInsights() {
       midLevel: 450,
       senior: 620,
       lead: 750,
+    },
+  ];
+
+  const cards = [
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#566A23",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#b8d277",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#566A23",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#878786",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#566A23",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#566A23",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#b8d277",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#566A23",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#878786",
+    },
+    {
+      label: "Technology",
+      value: PercentageFormatter.format(0.85, { decimals: 0 }),
+      color: "#566A23",
     },
   ];
 
@@ -439,7 +496,13 @@ function SalaryInsights() {
             ]}
           />
         </section>
-
+        <section className={styles.card_chart_section}>
+          <CardChart title="Salary Data Coverage by Industry" data={cards} />
+        </section>
+        <section className={styles.pay_gap_and_submission_section}>
+          <PayGap />
+          <RecentSubmission />
+        </section>
         <CompanyProfileTraffic />
       </div>
     </PageLayout>
