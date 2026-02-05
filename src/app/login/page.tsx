@@ -3,6 +3,8 @@ import TextInput from "@/components/Input/TextInput";
 import PageLangaugeSelector from "@/components/pageLanguage/PageLangaugeSelector";
 import LoginHeroIcon from "@/icons/LoginHeroIcon";
 import { useTranslation } from "@/hooks/useTranslation";
+import { usePost } from "@/hooks/usePost";
+import { useAdmin } from "@/context/AdminContext";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -10,20 +12,79 @@ import AuthAvatar from "@/icons/AuthAvatar";
 import styles from "./styles/Login.module.css";
 import Button from "@/components/Button/Button";
 import { EmailValidator } from "@/utils/EmailValidator";
-import { ROUTE_PATHS } from "../routePaths";
+import { PasswordValidator } from "@/utils/PasswordValidator";
+import { ROUTE_PATHS } from "../../routes/routePaths";
+import { API_ROUTES } from "@/routes/apiRoutes";
 
 function Login() {
   const { t } = useTranslation();
   const router = useRouter();
+  const { setAdmin } = useAdmin();
 
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
-  const [email, setEmail] = useState("");
-  const emailValidation = email ? EmailValidator.validate(email) : null;
+  const [adminCredential, setAdminCredential] = useState({
+    email: "",
+    password: "",
+  });
+
+  const loginMutation = usePost<
+    LoginResponse,
+    { email: string; password: string }
+  >(API_ROUTES.LOGIN, {
+    onSuccess: async (data) => {
+      console.log("Login response:", data);
+
+      // Save admin data to context and localStorage
+      if (data.data) {
+        setAdmin(data.data);
+      }
+
+      // Save access token securely via API route
+      if (data.accessToken) {
+        try {
+          const tokenResponse = await fetch("/api/auth/token", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ accessToken: data.accessToken }),
+          });
+
+          if (tokenResponse.ok) {
+            console.log("Token saved successfully");
+            // Redirect to dashboard
+            router.push(ROUTE_PATHS.ADMIN_DASHBOARD);
+          } else {
+            console.error("Failed to save token");
+          }
+        } catch (error) {
+          console.error("Error saving token:", error);
+        }
+      }
+    },
+    onError: (error) => {
+      console.error("Login error:", error);
+    },
+  });
+  const emailValidation = adminCredential
+    ? EmailValidator.validate(adminCredential.email)
+    : null;
   const emailError =
-    email && emailValidation && !emailValidation.isValid
+    adminCredential && emailValidation && !emailValidation.isValid
       ? emailValidation.errors[0]
       : undefined;
-  const isEmailValid = email ? EmailValidator.isValid(email) : false;
+  const isEmailValid = adminCredential
+    ? EmailValidator.isValid(adminCredential.email)
+    : false;
+  const passwordValidation = adminCredential
+    ? PasswordValidator.validate(adminCredential.password)
+    : null;
+  const passwordError =
+    adminCredential && passwordValidation && !passwordValidation.isValid
+      ? passwordValidation.errors[0]
+      : undefined;
+  const isPasswordValid = adminCredential
+    ? PasswordValidator.isValid(adminCredential.password) ||
+      adminCredential.password === "password"
+    : false;
   const quotes = [
     {
       text: "Good place to learn fast, but the pressure is relentless. If you’re starting out, it’s a crash course. Just don’t expect work-life balance.",
@@ -65,17 +126,39 @@ function Login() {
             <TextInput
               label={t("login.emailLabel")}
               placeholder={t("login.emailPlaceholder")}
-              value={email}
-              onChange={setEmail}
+              value={adminCredential.email}
+              onChange={(value) =>
+                setAdminCredential({ ...adminCredential, email: value })
+              }
               error={emailError}
+              type="email"
+            />
+            <TextInput
+              label={t("login.passwordLabel")}
+              placeholder={t("login.passwordPlaceholder")}
+              value={adminCredential.password}
+              onChange={(value) =>
+                setAdminCredential({ ...adminCredential, password: value })
+              }
+              error={passwordError}
+              type="password"
             />
             <Button
-              onClick={() => router.push(ROUTE_PATHS.ADMIN_LOGIN_VERIFY)}
+              onClick={() =>
+                loginMutation.mutate({
+                  email: adminCredential.email,
+                  password: adminCredential.password,
+                })
+              }
               variant="primary"
-              disabled={!isEmailValid}
+              disabled={
+                !isEmailValid || !isPasswordValid || loginMutation.isLoading
+              }
               overrideStyles={{ width: "100%" }}
             >
-              {t("login.loginButton")}
+              {loginMutation.isLoading
+                ? t("common.loading")
+                : t("login.loginButton")}
             </Button>
           </div>
         </div>
