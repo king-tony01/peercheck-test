@@ -1,6 +1,6 @@
 "use client";
 
-import { ROUTE_PATHS } from "@/app/routePaths";
+import { ROUTE_PATHS } from "@/routes/routePaths";
 import DashboardIcon from "@/icons/DashboardIcon";
 import SideBarSection from "./components/SideBarSection";
 import AnalyticsIcon from "@/icons/AnalyticsIcon";
