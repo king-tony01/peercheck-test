@@ -81,7 +81,12 @@ export const useFetch = <T = unknown>(
         if (res.status === 204) {
           result = null as unknown as T;
         } else if (contentType.includes("application/json")) {
-          result = await res.json();
+          const payload = await res.json();
+          result = (
+            payload && typeof payload === "object" && "data" in payload
+              ? payload.data
+              : payload
+          ) as T;
         } else {
           result = (await res.text()) as unknown as T;
         }

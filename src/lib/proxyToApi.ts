@@ -6,15 +6,7 @@
 import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 
-type ProxyOptions = {
-  skipAuth?: boolean; // Skip adding Authorization header
-};
-
-export async function proxyToApi(
-  req: Request | NextRequest,
-  path: string,
-  options?: ProxyOptions,
-) {
+export async function proxyToApi(req: Request | NextRequest, path: string) {
   const base = process.env.API_BASE_URL || "";
   // Ensure path starts with /
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
@@ -34,16 +26,14 @@ export async function proxyToApi(
   }
 
   // Add Authorization header with access token from cookies
-  if (!options?.skipAuth) {
-    try {
-      const cookieStore = await cookies();
-      const accessToken = cookieStore.get("syncnexa_access_token")?.value;
-      if (accessToken) {
-        headers.set("Authorization", `Bearer ${accessToken}`);
-      }
-    } catch (e) {
-      // ignore if cookies are not available
+  try {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("peercheck_access_token")?.value;
+    if (accessToken) {
+      headers.set("Authorization", `Bearer ${accessToken}`);
     }
+  } catch (e) {
+    // ignore if cookies are not available
   }
 
   // Preserve body if present
@@ -58,18 +48,37 @@ export async function proxyToApi(
     // ignore
   }
 
-  const res = await fetch(
+  const targetWithQuery =
     target +
-      (typeof (req as Request).url === "string"
-        ? new URL((req as Request).url).search
-        : ""),
-    {
+    (typeof (req as Request).url === "string"
+      ? new URL((req as Request).url).search
+      : "");
+
+  let res: Response;
+  try {
+    res = await fetch(targetWithQuery, {
       method: (req as Request).method || "GET",
       headers,
       body,
       // keep same credentials behavior; Next.js server fetch uses same-origin by default
-    },
-  );
+    });
+  } catch (error) {
+    console.error("proxyToApi fetch failed", {
+      target: targetWithQuery,
+      error,
+    });
+    return new Response(
+      JSON.stringify({
+        message: "Upstream API request failed",
+        status: "error",
+        statusCode: "504",
+      }),
+      {
+        status: 504,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  }
 
   // Build a response copying status, headers and body
   const responseHeaders = new Headers();

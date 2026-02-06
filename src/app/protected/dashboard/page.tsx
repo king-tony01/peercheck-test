@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { useFetch } from "@/hooks/useFetch";
+import { API_ROUTES } from "@/routes/apiRoutes";
 import Charts from "./Charts";
 import RecentActivity from "./RecentActivity";
 import PageLayout from "@/layouts/PageLayout/PageLayout";
@@ -14,36 +18,72 @@ import ReviewsIcon from "@/icons/ReviewsIcon";
 import MetricCard from "@/components/Cards/MetricCard";
 
 function Dashboard() {
+  const { data: overviewData } = useFetch<OverviewMetricCards>(
+    API_ROUTES.DASHBOARD_OVERVIEW,
+    {
+      onSuccess: (data) => {
+        console.log("Dashboard overview response:", data);
+      },
+      onError: (error) => {
+        console.error("Dashboard overview error:", error);
+      },
+    },
+  );
+
+  const formatChangeLabel = (value?: number) => {
+    const safeValue = Number(value ?? 0);
+    const prefix = safeValue > 0 ? "+" : "";
+    return `${prefix}${safeValue}`;
+  };
+
+  const getChipColor = (value?: number): "green" | "red" =>
+    Number(value ?? 0) >= 0 ? "green" : "red";
+
   const overviewCards: MetricCard[] = [
     {
       title: "All Companies",
-      value: 36681,
+      value: overviewData?.allCompanies?.count ?? 0,
       icon: <CompaniesIcon />,
-      chip: { label: "+312", color: "green" },
+      chip: {
+        label: formatChangeLabel(overviewData?.allCompanies?.change),
+        color: getChipColor(overviewData?.allCompanies?.change),
+      },
       type: "link",
       path: "/admin/companies",
     },
     {
       title: "All Institutions",
-      value: 1214,
+      value: overviewData?.allInstitutions?.count ?? 0,
       icon: <InstitutionsIcon />,
-      chip: { label: "+312", color: "green" },
+      chip: {
+        label: formatChangeLabel(overviewData?.allInstitutions?.change),
+        color: getChipColor(overviewData?.allInstitutions?.change),
+      },
       type: "link",
       path: "/admin/institutions",
     },
     {
       title: "Total Users",
-      value: 124580,
+      value: overviewData?.totalUsers?.count ?? 0,
       icon: <UsersIcon />,
-      trend: { direction: "down", percentage: 13.5 },
+      trend: {
+        direction: (overviewData?.totalUsers?.change ?? 0) >= 0 ? "up" : "down",
+        percentage: Math.abs(overviewData?.totalUsers?.change ?? 0),
+      },
       type: "link",
       path: "/admin/analytics/user-insights",
     },
     {
       title: "Total Reviews Submitted",
-      value: 753,
+      value: overviewData?.totalReviewsSubmitted?.count ?? 0,
       icon: <ReviewsIcon />,
-      trend: { direction: "down", percentage: 23.5 },
+      trend: {
+        direction:
+          (overviewData?.totalReviewsSubmitted?.change ?? 0) >= 0
+            ? "up"
+            : "down",
+        percentage: Math.abs(overviewData?.totalReviewsSubmitted?.change ?? 0),
+      },
       type: "link",
       path: "/admin/reviews",
     },

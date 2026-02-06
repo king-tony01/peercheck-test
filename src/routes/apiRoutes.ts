@@ -1,6 +1,6 @@
 export const BACKEND_ROUTES = {
   LOGIN_ADMIN: "/auth/login",
-  CREATE_USER: "/api/users/create",
+  DASHBOARD_OVERVIEW: "/statistics/dashboard/overview",
   UPDATE_USER: "/api/users/update",
   DELETE_USER: "/api/users/delete",
   GET_REPORTS: "/api/reports",
@@ -11,7 +11,7 @@ export const BACKEND_ROUTES = {
 
 export const API_ROUTES = {
   LOGIN: "/api/login",
-  CREATE_USER: "/api/users/create",
+  DASHBOARD_OVERVIEW: "/api/dashboard/overview",
   UPDATE_USER: "/api/users/update",
   DELETE_USER: "/api/users/delete",
   GET_REPORTS: "/api/reports",

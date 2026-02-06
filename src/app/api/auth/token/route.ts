@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     }
 
     const cookieStore = await cookies();
-    cookieStore.set("syncnexa_access_token", accessToken, {
+    cookieStore.set("peercheck_access_token", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 export async function DELETE() {
   try {
     const cookieStore = await cookies();
-    cookieStore.delete("syncnexa_access_token");
+    cookieStore.delete("peercheck_access_token");
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(

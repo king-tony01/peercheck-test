@@ -22,3 +22,30 @@ interface Chip {
   color: ChipColor;
   direction?: "up" | "down";
 }
+
+interface OverviewMetricCards {
+  allCompanies: AllCompanies;
+  allInstitutions: AllInstitutions;
+  totalUsers: TotalUsers;
+  totalReviewsSubmitted: TotalReviewsSubmitted;
+}
+
+interface AllCompanies {
+  count: number;
+  change: number;
+}
+
+interface AllInstitutions {
+  count: number;
+  change: number;
+}
+
+interface TotalUsers {
+  count: number;
+  change: number;
+}
+
+interface TotalReviewsSubmitted {
+  count: number;
+  change: number;
+}

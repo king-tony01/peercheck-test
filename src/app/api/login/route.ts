@@ -1,5 +1,5 @@
 import proxyToApi from "@/lib/proxyToApi";
-import { API_ROUTES, BACKEND_ROUTES } from "@/routes/apiRoutes";
+import { BACKEND_ROUTES } from "@/routes/apiRoutes";
 
 export async function POST(req: Request) {
   // forwards request to upstream `login` endpoint
