@@ -43,6 +43,7 @@ function CustomBarChart({
   legends = [],
   showCartesian = false,
   showYAxis = false,
+  isLoading = false,
 }: {
   title: string;
   subtitle?: string;
@@ -51,7 +52,26 @@ function CustomBarChart({
   legends?: Array<{ label: string; color: string }>;
   showCartesian?: boolean;
   showYAxis?: boolean;
+  isLoading?: boolean;
 }) {
+  if (isLoading) {
+    return (
+      <div className={styles.chart}>
+        <div className={styles.header}>
+          <div className={styles.title_container}>
+            <div className={`${styles.skeleton} ${styles.skeleton_title}`} />
+            {subtitle && (
+              <div
+                className={`${styles.skeleton} ${styles.skeleton_subtitle}`}
+              />
+            )}
+          </div>
+        </div>
+        <div className={`${styles.skeleton} ${styles.skeleton_chart}`} />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.chart}>
       <div className={styles.header}>

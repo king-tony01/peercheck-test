@@ -15,10 +15,8 @@ import ListChart from "@/components/Charts/ListChart";
 import CustomPieChart from "@/components/Charts/CustomPieChart";
 import useFetch from "@/hooks/useFetch";
 import { API_ROUTES } from "@/routes/apiRoutes";
-import { useToast } from "@/components/Toast/ToastProvider";
 
 function UserInsights() {
-  const { showToast } = useToast();
   const {
     data: userInsightsData,
     isLoading,
@@ -26,10 +24,6 @@ function UserInsights() {
   } = useFetch<UserInsightsData>(API_ROUTES.ANALYTICS_USERS_INSIGHTS, {
     onError: (error) => {
       console.error("Analytics user insights error:", error);
-      showToast("Unable to load user insights.", {
-        type: "error",
-        description: error.message,
-      });
     },
   });
 
@@ -182,6 +176,7 @@ function UserInsights() {
               data={userGrowthData}
               showCartesian
               showYAxis
+              isLoading={isLoading}
             />
           </div>
           <div className={styles.chart}>
@@ -189,6 +184,7 @@ function UserInsights() {
               title="Top 10 cities"
               subtitle="By user distribution"
               data={topCities}
+              isLoading={isLoading}
             />
           </div>
         </section>
@@ -198,6 +194,7 @@ function UserInsights() {
               title="TOP ROLES"
               subtitle="By user distribution"
               data={topRolesData}
+              isLoading={isLoading}
             />
           </div>
           <span className={styles.line}></span>
@@ -206,6 +203,7 @@ function UserInsights() {
               title="Top industries"
               subtitle="By user distribution"
               data={topIndustriesData}
+              isLoading={isLoading}
             />
           </div>
         </section>

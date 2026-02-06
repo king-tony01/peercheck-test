@@ -15,11 +15,13 @@ import { EmailValidator } from "@/utils/EmailValidator";
 import { PasswordValidator } from "@/utils/PasswordValidator";
 import { ROUTE_PATHS } from "../../routes/routePaths";
 import { API_ROUTES } from "@/routes/apiRoutes";
+import { useToast } from "@/components/Toast/ToastProvider";
 
 function Login() {
   const { t } = useTranslation();
   const router = useRouter();
   const { setAdmin } = useAdmin();
+  const { showToast } = useToast();
 
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [adminCredential, setAdminCredential] = useState({
@@ -62,6 +64,9 @@ function Login() {
     },
     onError: (error) => {
       console.error("Login error:", error);
+      showToast(error.message || "Login failed.", {
+        type: "error",
+      });
     },
   });
   const emailValidation = adminCredential

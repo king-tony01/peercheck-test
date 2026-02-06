@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/components/Button/Button";
 import DropdownInput from "@/components/Input/DropdownInput";
 import ClipBoardIcon from "@/icons/ClipBoardIcon";
@@ -11,8 +12,20 @@ import MetricCard from "@/components/Cards/MetricCard";
 import CustomBarChart from "@/components/Charts/BarChart";
 import CompanyProfileTraffic from "./CompanyProfileTraffic";
 import InfoTriangle from "@/icons/InfoTrangle";
+import useFetch from "@/hooks/useFetch";
+import { API_ROUTES } from "@/routes/apiRoutes";
 
 function CompanyInsights() {
+  const {
+    data: companyInsightsData,
+    isLoading,
+    isError,
+  } = useFetch(API_ROUTES.ANALYTICS_COMPANY_INSIGHTS, {
+    onError: (error) => {
+      console.error("Dashboard user engagement error:", error);
+    },
+  });
+  console.log("Company insights data:", companyInsightsData);
   const overviewCards: MetricCard[] = [
     {
       title: "Total Companies Indexed",
@@ -184,8 +197,8 @@ function CompanyInsights() {
           <div className={styles.bar_charts}>
             <div className={styles.chart}>
               <CustomBarChart
-                title="User growth"
-                subtitle="User Acquisition Overview"
+                title="Review Volume"
+                subtitle="By Industry"
                 data={reviewCategoryData}
                 showCartesian
                 showYAxis
@@ -193,8 +206,8 @@ function CompanyInsights() {
             </div>
             <div className={styles.chart}>
               <CustomBarChart
-                title="User growth"
-                subtitle="User Acquisition Overview"
+                title="Company Coverage Depth by industry"
+                subtitle="(Over 20 reviews per company)"
                 data={reviewCategoryData}
                 showCartesian
                 showYAxis

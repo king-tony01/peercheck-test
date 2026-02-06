@@ -16,10 +16,8 @@ import InstitutionsIcon from "@/icons/InstitutionsIcon";
 import UsersIcon from "@/icons/UsersIcon";
 import ReviewsIcon from "@/icons/ReviewsIcon";
 import MetricCard from "@/components/Cards/MetricCard";
-import { useToast } from "@/components/Toast/ToastProvider";
 
 function Dashboard() {
-  const { showToast } = useToast();
   const {
     data: overviewData,
     isLoading,
@@ -27,22 +25,20 @@ function Dashboard() {
   } = useFetch<OverviewMetricCards>(API_ROUTES.DASHBOARD_OVERVIEW, {
     onError: (error) => {
       console.error("Dashboard overview error:", error);
-      showToast("Unable to load dashboard overview.", {
-        type: "error",
-        description: error.message,
-      });
     },
   });
 
-  useFetch(API_ROUTES.DASHBOARD_USER_ENGAGEMENT_CHART, {
-    onError: (error) => {
-      console.error("Dashboard user engagement error:", error);
-      showToast("Unable to load user engagement chart.", {
-        type: "warning",
-        description: error.message,
-      });
+  const {
+    data: engagementData,
+    isLoading: isEngagementLoading,
+  } = useFetch<DashboardUserEngagementPoint[]>(
+    API_ROUTES.DASHBOARD_USER_ENGAGEMENT_CHART,
+    {
+      onError: (error) => {
+        console.error("Dashboard user engagement error:", error);
+      },
     },
-  });
+  );
 
   const formatChangeLabel = (value?: number) => {
     const safeValue = Number(value ?? 0);
@@ -161,7 +157,10 @@ function Dashboard() {
           ))}
         </div>
       </section>
-      <Charts />
+      <Charts
+        engagementData={engagementData ?? []}
+        isLoading={isEngagementLoading}
+      />
       <RecentActivity />
     </PageLayout>
   );

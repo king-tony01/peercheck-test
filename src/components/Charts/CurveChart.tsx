@@ -35,6 +35,7 @@ function CurveChart({
   data,
   showLegend = true,
   legends = [],
+  isLoading = false,
 }: {
   title: string;
   subtitle?: string;
@@ -46,7 +47,26 @@ function CurveChart({
   }[];
   showLegend?: boolean;
   legends?: Array<{ label: string; color: string }>;
+  isLoading?: boolean;
 }) {
+  if (isLoading) {
+    return (
+      <div className={styles.chart}>
+        <div className={styles.header}>
+          <div className={styles.title_container}>
+            <div className={`${styles.skeleton} ${styles.skeleton_title}`} />
+            {subtitle && (
+              <div
+                className={`${styles.skeleton} ${styles.skeleton_subtitle}`}
+              />
+            )}
+          </div>
+        </div>
+        <div className={`${styles.skeleton} ${styles.skeleton_chart}`} />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.chart}>
       <div className={styles.header}>

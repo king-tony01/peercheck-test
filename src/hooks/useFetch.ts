@@ -1,6 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/Toast/ToastProvider";
+import { ROUTE_PATHS } from "@/routes/routePaths";
 
 export const useFetch = <T = unknown>(
   endpoint: string | null,
@@ -26,6 +29,8 @@ export const useFetch = <T = unknown>(
   const [isLoading, setIsLoading] = useState(false);
 
   const abortRef = useRef<AbortController | null>(null);
+  const router = useRouter();
+  const { showToast } = useToast();
 
   const fetchData = useCallback(async () => {
     if (!endpoint || !enabled) return null;
@@ -104,6 +109,16 @@ export const useFetch = <T = unknown>(
       setError(apiError);
       setStatus(apiError.status ?? null);
       onError?.(apiError);
+      if (apiError.status === 401) {
+        showToast(apiError.message || "Session expired.", {
+          type: "warning",
+        });
+        router.push(ROUTE_PATHS.ADMIN_LOGIN);
+      } else {
+        showToast(apiError.message || "Request failed.", {
+          type: apiError.status && apiError.status >= 500 ? "error" : "warning",
+        });
+      }
       return null;
     } finally {
       setIsLoading(false);

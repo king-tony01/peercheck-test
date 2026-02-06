@@ -5,13 +5,40 @@ function ListChart({
   data,
   showLegend = true,
   legends = [],
+  isLoading = false,
 }: {
   title: string;
   subtitle?: string;
   data: Array<{ label: string; value: number }>;
   showLegend?: boolean;
   legends?: Array<{ label: string; color: string }>;
+  isLoading?: boolean;
 }) {
+  if (isLoading) {
+    return (
+      <section className={styles.chart}>
+        <div className={styles.header}>
+          <div className={styles.title_container}>
+            <div className={`${styles.skeleton} ${styles.skeleton_title}`} />
+            {subtitle && (
+              <div
+                className={`${styles.skeleton} ${styles.skeleton_subtitle}`}
+              />
+            )}
+          </div>
+        </div>
+        <div className={styles.skeleton_list}>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div
+              key={index}
+              className={`${styles.skeleton} ${styles.skeleton_list_item}`}
+            />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className={styles.chart}>
       <div className={styles.header}>

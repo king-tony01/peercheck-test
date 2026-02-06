@@ -1,6 +1,9 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/Toast/ToastProvider";
+import { ROUTE_PATHS } from "@/routes/routePaths";
 
 export const usePost = <TData = unknown, TVariables = unknown>(
   endpoint: string,
@@ -24,6 +27,8 @@ export const usePost = <TData = unknown, TVariables = unknown>(
   const [isLoading, setIsLoading] = useState(false);
 
   const abortRef = useRef<AbortController | null>(null);
+  const router = useRouter();
+  const { showToast } = useToast();
 
   const mutate = useCallback(
     async (variables: TVariables) => {
@@ -111,6 +116,17 @@ export const usePost = <TData = unknown, TVariables = unknown>(
         setError(apiError);
         setStatus(apiError.status ?? null);
         onError?.(apiError, variables);
+        if (apiError.status === 401) {
+          showToast(apiError.message || "Session expired.", {
+            type: "warning",
+          });
+          router.push(ROUTE_PATHS.ADMIN_LOGIN);
+        } else {
+          showToast(apiError.message || "Request failed.", {
+            type:
+              apiError.status && apiError.status >= 500 ? "error" : "warning",
+          });
+        }
         return null;
       } finally {
         setIsLoading(false);

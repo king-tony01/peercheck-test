@@ -16,6 +16,7 @@ interface CustomPieChartProps {
   subtitle?: string;
   data: PieChartDataItem[];
   colors?: string[];
+  isLoading?: boolean;
 }
 
 function CustomPieChart({
@@ -23,7 +24,36 @@ function CustomPieChart({
   subtitle,
   data,
   colors = DEFAULT_COLORS,
+  isLoading = false,
 }: CustomPieChartProps) {
+  if (isLoading) {
+    return (
+      <div className={styles.chart}>
+        <div className={styles.header}>
+          <div className={styles.title_container}>
+            <div className={`${styles.skeleton} ${styles.skeleton_title}`} />
+            {subtitle && (
+              <div
+                className={`${styles.skeleton} ${styles.skeleton_subtitle}`}
+              />
+            )}
+          </div>
+        </div>
+        <div className={styles.skeleton_pie_container}>
+          <div className={`${styles.skeleton} ${styles.skeleton_pie}`} />
+          <div className={styles.skeleton_legend}>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div
+                key={index}
+                className={`${styles.skeleton} ${styles.skeleton_list_item}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const getColor = (item: PieChartDataItem, index: number): string => {
     return item.color || colors[index % colors.length];
   };

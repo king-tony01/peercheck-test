@@ -50,3 +50,10 @@ interface TotalReviewsSubmitted {
   count: number;
   change: number;
 }
+
+interface DashboardUserEngagementPoint {
+  month: string;
+  users: number;
+  reviews: number;
+  highlight?: string;
+}
