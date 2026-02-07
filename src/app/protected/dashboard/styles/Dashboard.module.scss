@@ -23,6 +23,10 @@
   .cards {
     display: flex;
     gap: 1rem;
+
+    @media screen and (max-width: 600px) {
+      flex-direction: column;
+    }
   }
 }
 
@@ -34,11 +38,20 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+
   .chart {
     padding: 1.5rem;
 
     &:first-child {
       border-right: 0.1rem solid #eaeaea;
+
+      @media screen and (max-width: 600px) {
+        border-right: unset;
+        border-bottom: 0.1rem solid #eaeaea;
+      }
     }
   }
 }

@@ -9,6 +9,16 @@
   font-family: "Tanker";
   font-weight: 500;
 }
+@media screen and (max-width: 600px) {
+  .top_bar h1 {
+    font-size: 1.5rem;
+  }
+}
+.top_bar .top_bar_left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 .top_bar .top_bar_right {
   display: flex;
   align-items: center;
@@ -20,6 +30,12 @@
   gap: 0.5rem;
   cursor: pointer;
   position: relative;
+}
+.top_bar .top_bar_right .action_btn img {
+  width: 2.5rem;
+  height: 2.5rem;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .top_bar .top_bar_right .action_btn .dropdown {
   position: absolute;

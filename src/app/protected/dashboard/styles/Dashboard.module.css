@@ -21,6 +21,11 @@
   display: flex;
   gap: 1rem;
 }
+@media screen and (max-width: 600px) {
+  .overview .cards {
+    flex-direction: column;
+  }
+}
 
 .charts {
   display: grid;
@@ -30,11 +35,22 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 }
+@media screen and (max-width: 600px) {
+  .charts {
+    display: block;
+  }
+}
 .charts .chart {
   padding: 1.5rem;
 }
 .charts .chart:first-child {
   border-right: 0.1rem solid #eaeaea;
+}
+@media screen and (max-width: 600px) {
+  .charts .chart:first-child {
+    border-right: unset;
+    border-bottom: 0.1rem solid #eaeaea;
+  }
 }
 
 .recent_activity {

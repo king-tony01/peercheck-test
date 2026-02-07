@@ -4,6 +4,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { AdminProvider } from "@/context/AdminContext";
 import { ToastProvider } from "@/components/Toast/ToastProvider";
+import { CustomNavigationProvider } from "@/context/CustomNavigationContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LanguageProvider>
-          <AdminProvider>
-            <ToastProvider>{children}</ToastProvider>
-          </AdminProvider>
-        </LanguageProvider>
+        <CustomNavigationProvider>
+          <LanguageProvider>
+            <AdminProvider>
+              <ToastProvider>{children}</ToastProvider>
+            </AdminProvider>
+          </LanguageProvider>
+        </CustomNavigationProvider>
       </body>
     </html>
   );

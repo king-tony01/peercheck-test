@@ -74,8 +74,32 @@
   border-right: 0.1rem solid #eaeaea;
   padding: 1rem;
 }
+@media screen and (max-width: 600px) {
+  .side_bar {
+    border-right: unset;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.2549019608);
+    -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  .side_bar .container {
+    background: #ffffff;
+    width: 50%;
+    height: 100%;
+    padding: 1rem;
+  }
+}
 .side_bar .logo_container {
   margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .side_bar .logo_container img {
   display: block;

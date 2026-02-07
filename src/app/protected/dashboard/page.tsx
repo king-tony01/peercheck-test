@@ -28,17 +28,13 @@ function Dashboard() {
     },
   });
 
-  const {
-    data: engagementData,
-    isLoading: isEngagementLoading,
-  } = useFetch<DashboardUserEngagementPoint[]>(
-    API_ROUTES.DASHBOARD_USER_ENGAGEMENT_CHART,
-    {
-      onError: (error) => {
-        console.error("Dashboard user engagement error:", error);
-      },
+  const { data: engagementData, isLoading: isEngagementLoading } = useFetch<
+    DashboardUserEngagementPoint[]
+  >(API_ROUTES.DASHBOARD_USER_ENGAGEMENT_CHART, {
+    onError: (error) => {
+      console.error("Dashboard user engagement error:", error);
     },
-  );
+  });
 
   const formatChangeLabel = (value?: number) => {
     const safeValue = Number(value ?? 0);
@@ -142,10 +138,20 @@ function Dashboard() {
         />
       }
       leftNodes={[
-        <Button variant="secondary" key={"1"}>
+        <Button
+          variant="secondary"
+          key={"1"}
+          overrideStyles={{ width: "100%" }}
+          size="medium"
+        >
           <ExportIcon /> <span>Export Data</span>
         </Button>,
-        <Button variant="secondary" key={"2"}>
+        <Button
+          variant="secondary"
+          key={"2"}
+          overrideStyles={{ width: "100%" }}
+          size="medium"
+        >
           <ClipBoardIcon /> <span>Create Report</span>
         </Button>,
       ]}

@@ -10,11 +10,14 @@ import { useRouter } from "next/navigation";
 import { ROUTE_PATHS } from "@/routes/routePaths";
 import { useAdmin } from "@/context/AdminContext";
 import { useState } from "react";
+import HamburgerIcon from "@/icons/HamburgerIcon";
+import { useCustomNavigation } from "@/hooks/useCustomNavigation";
 
 function TopBar() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const { clearAdmin } = useAdmin();
+  const { open: navOpen, toggleOpen } = useCustomNavigation();
 
   const logoutMutation = usePost<void, void>(API_ROUTES.LOGOUT_ADMIN, {
     onSuccess: async () => {
@@ -31,7 +34,12 @@ function TopBar() {
 
   return (
     <section className={styles.top_bar}>
-      <h1>Welcome Back, Alex</h1>
+      <div className={styles.top_bar_left}>
+        <button onClick={toggleOpen}>
+          <HamburgerIcon />
+        </button>
+        <h1>Welcome Back, Alex</h1>
+      </div>
       <div className={styles.top_bar_right}>
         <SearchInput placeholder="Search" />
         <button className={styles.action_btn} onClick={() => setOpen(!open)}>
