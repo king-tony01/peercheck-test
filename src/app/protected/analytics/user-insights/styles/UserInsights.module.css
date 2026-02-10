@@ -5,6 +5,11 @@
   display: flex;
   gap: 1rem;
 }
+@media screen and (max-width: 600px) {
+  .overview .cards {
+    flex-direction: column;
+  }
+}
 
 .charts {
   display: grid;
@@ -14,11 +19,23 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 }
+@media screen and (max-width: 600px) {
+  .charts {
+    display: block;
+  }
+}
 .charts .chart {
   padding: 1.5rem;
 }
 .charts .chart:first-child {
   border-right: 0.1rem solid #eaeaea;
+}
+@media screen and (max-width: 600px) {
+  .charts .chart:first-child {
+    border-right: unset;
+    border-bottom: 0.1rem solid #eaeaea;
+    overflow: auto;
+  }
 }
 
 .pie_charts {
@@ -30,12 +47,25 @@
   padding: 2rem;
   gap: 1;
 }
+@media screen and (max-width: 600px) {
+  .pie_charts {
+    display: block;
+  }
+}
 .pie_charts .pie {
   flex: 1;
 }
 .pie_charts .pie:last-child {
   border-left: 0.1rem solid #e2e4e9;
   padding-left: 2rem;
+}
+@media screen and (max-width: 600px) {
+  .pie_charts .pie:last-child {
+    border-left: unset;
+    border-top: 0.1rem solid #e2e4e9;
+    padding-left: unset;
+    padding-top: 2rem;
+  }
 }
 
 .recent_activity {

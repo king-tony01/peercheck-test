@@ -4,6 +4,10 @@
   .cards {
     display: flex;
     gap: 1rem;
+
+    @media screen and (max-width: 600px) {
+      flex-direction: column;
+    }
   }
 }
 
@@ -15,11 +19,21 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+
   .chart {
     padding: 1.5rem;
 
     &:first-child {
       border-right: 0.1rem solid #eaeaea;
+
+      @media screen and (max-width: 600px) {
+        border-right: unset;
+        border-bottom: 0.1rem solid #eaeaea;
+        overflow: auto;
+      }
     }
   }
 }
@@ -33,12 +47,23 @@
   padding: 2rem;
   gap: 1;
 
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+
   .pie {
     flex: 1;
 
     &:last-child {
       border-left: 0.1rem solid #e2e4e9;
       padding-left: 2rem;
+
+      @media screen and (max-width: 600px) {
+        border-left: unset;
+        border-top: 0.1rem solid #e2e4e9;
+        padding-left: unset;
+        padding-top: 2rem;
+      }
     }
   }
 }
