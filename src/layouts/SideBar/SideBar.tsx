@@ -14,9 +14,11 @@ import SettingsIcon from "@/icons/SettingsIcon";
 import Image from "next/image";
 import styles from "./styles/SideBar.module.css";
 import { usePathname } from "next/navigation";
+import { useCustomNavigation } from "@/hooks/useCustomNavigation";
 
 function SideBar() {
   const pathname = usePathname();
+  const { open, toggleOpen, currentRoute } = useCustomNavigation();
 
   const navList: NavSection[] = [
     {
@@ -93,21 +95,23 @@ function SideBar() {
       ],
     },
   ];
-  return (
-    <nav className={styles.side_bar}>
-      <div className={styles.logo_container}>
-        <Image width={100} height={30} src="/logo.png" alt="PeerCheck Logo" />
+  return open ? (
+    <nav className={styles.side_bar} onClick={toggleOpen}>
+      <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.logo_container}>
+          <Image width={100} height={30} src="/logo.png" alt="PeerCheck Logo" />
+        </div>
+        {navList.map((section) => (
+          <SideBarSection
+            key={section.sectionTitle}
+            sectionTitle={section.sectionTitle}
+            items={section.items}
+            currentPath={currentRoute}
+          />
+        ))}
       </div>
-      {navList.map((section) => (
-        <SideBarSection
-          key={section.sectionTitle}
-          sectionTitle={section.sectionTitle}
-          items={section.items}
-          currentPath={pathname}
-        />
-      ))}
     </nav>
-  );
+  ) : null;
 }
 
 export default SideBar;

@@ -114,13 +114,15 @@ function Login() {
   return (
     <section className={styles.login}>
       <div className={styles.left}>
-        <Image
-          src={"/logo.png"}
-          alt="Peercheck Logo"
-          width={150}
-          height={50}
-          className={styles.logo}
-        />
+        <div className={styles.top}>
+          <Image
+            src={"/logo.png"}
+            alt="Peercheck Logo"
+            width={150}
+            height={50}
+            className={styles.logo}
+          />
+        </div>
         <div className={styles.center}>
           <LoginHeroIcon />
           <div>

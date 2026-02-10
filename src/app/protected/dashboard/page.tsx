@@ -28,17 +28,19 @@ function Dashboard() {
     },
   });
 
-  const {
-    data: engagementData,
-    isLoading: isEngagementLoading,
-  } = useFetch<DashboardUserEngagementPoint[]>(
-    API_ROUTES.DASHBOARD_USER_ENGAGEMENT_CHART,
-    {
+  const { data: engagementData, isLoading: isEngagementLoading } =
+    useFetch<PulseChartData>(API_ROUTES.DASHBOARD_USER_ENGAGEMENT_CHART, {
       onError: (error) => {
         console.error("Dashboard user engagement error:", error);
       },
-    },
-  );
+    });
+
+  const { data: recentActivity, isLoading: isRecentActivityLoading } =
+    useFetch<any>(API_ROUTES.DASHBOARD_RECENT_ACTIVITY, {
+      onError: (error) => {
+        console.error("Dashboard recent activity error:", error);
+      },
+    });
 
   const formatChangeLabel = (value?: number) => {
     const safeValue = Number(value ?? 0);
@@ -142,10 +144,20 @@ function Dashboard() {
         />
       }
       leftNodes={[
-        <Button variant="secondary" key={"1"}>
+        <Button
+          variant="secondary"
+          key={"1"}
+          overrideStyles={{ width: "100%" }}
+          size="medium"
+        >
           <ExportIcon /> <span>Export Data</span>
         </Button>,
-        <Button variant="secondary" key={"2"}>
+        <Button
+          variant="secondary"
+          key={"2"}
+          overrideStyles={{ width: "100%" }}
+          size="medium"
+        >
           <ClipBoardIcon /> <span>Create Report</span>
         </Button>,
       ]}
@@ -158,10 +170,10 @@ function Dashboard() {
         </div>
       </section>
       <Charts
-        engagementData={engagementData ?? []}
+        engagementData={engagementData ?? undefined}
         isLoading={isEngagementLoading}
       />
-      <RecentActivity />
+      <RecentActivity recentActivityData={recentActivity} />
     </PageLayout>
   );
 }

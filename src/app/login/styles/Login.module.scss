@@ -8,6 +8,10 @@
   padding: 1rem;
   gap: 2rem;
 
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
+
   .left {
     flex: 1;
     border-radius: 1.5rem;
@@ -18,6 +22,17 @@
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
+
+    @media screen and (max-width: 600px) {
+      border-radius: 0;
+      padding: 0;
+
+      .top {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e0e0e0;
+        width: 100%;
+      }
+    }
 
     .logo {
       width: 5.5rem;
@@ -62,6 +77,10 @@
       align-items: center;
       justify-content: space-between;
 
+      @media screen and (max-width: 600px) {
+        padding: 1rem;
+      }
+
       small {
         color: #5c5c5c;
         font-size: 0.9rem;
@@ -75,6 +94,10 @@
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
 
     .q_card {
       max-width: 30rem;

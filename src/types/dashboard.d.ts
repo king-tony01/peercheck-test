@@ -57,3 +57,25 @@ interface DashboardUserEngagementPoint {
   reviews: number;
   highlight?: string;
 }
+
+interface PulseChartData {
+  pulseData: PulseData;
+  totalReviewsByCategory: TotalReviewsByCategory[];
+}
+
+interface PulseData {
+  data: PulseChartDataPoint[];
+  activeUsers: number;
+  period: string;
+}
+
+interface PulseChartDataPoint {
+  month: string;
+  users: number;
+  reviews: number;
+}
+
+interface TotalReviewsByCategory {
+  category: string;
+  count: number;
+}

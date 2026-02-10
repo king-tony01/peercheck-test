@@ -8,6 +8,27 @@
   h1 {
     font-family: "Tanker";
     font-weight: 500;
+
+    @media screen and (max-width: 600px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .top_bar_left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .hamburger_btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      @media screen and (max-width: 600px) {
+        display: block;
+      }
+    }
   }
 
   .top_bar_right {
@@ -21,6 +42,12 @@
       gap: 0.5rem;
       cursor: pointer;
       position: relative;
+
+      img {
+        width: 2.5rem;
+        height: 2.5rem;
+        object-fit: cover;
+      }
 
       .dropdown {
         position: absolute;

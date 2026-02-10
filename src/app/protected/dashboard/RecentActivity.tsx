@@ -12,7 +12,7 @@ import FormatStatus from "@/components/wrappers/FormatStatus";
 import UserIcon from "@/icons/UserIcon";
 import CheckBox from "@/components/Input/CheckBox";
 
-function RecentActivity() {
+function RecentActivity({ recentActivityData }: { recentActivityData: any[] }) {
   const getActivityIcon = (type: string) => {
     switch (type) {
       case "User":
@@ -102,50 +102,7 @@ function RecentActivity() {
     },
   ];
 
-  const DEFAULT_DATA: TableRow[] = [
-    {
-      id: "1",
-      description: "New user registered - me@gmail.com",
-      activityType: "User",
-      date: "18 October, 2025",
-      status: "Completed",
-    },
-    {
-      id: "2",
-      description: "Company 'Tech360' submitted for verification",
-      activityType: "Company",
-      date: "18 October, 2025",
-      status: "Pending",
-    },
-    {
-      id: "3",
-      description: "New salary review posted for Flutterwave",
-      activityType: "Review",
-      date: "18 October, 2025",
-      status: "Approved",
-    },
-    {
-      id: "4",
-      description: "New salary review posted for Flutterwave",
-      activityType: "Review",
-      date: "18 October, 2025",
-      status: "Approved",
-    },
-    {
-      id: "5",
-      description: "New salary review posted for Flutterwave",
-      activityType: "Review",
-      date: "18 October, 2025",
-      status: "Approved",
-    },
-    {
-      id: "6",
-      description: "New salary review posted for Flutterwave",
-      activityType: "Review",
-      date: "18 October, 2025",
-      status: "Approved",
-    },
-  ];
+  const tableData = recentActivityData ?? [];
   return (
     <section className={styles.recent_activity}>
       <div className={styles.header}>
@@ -173,7 +130,7 @@ function RecentActivity() {
           />
         </div>
       </div>
-      <DynamicTable columns={DEFAULT_COLUMNS} data={DEFAULT_DATA} />
+      <DynamicTable columns={DEFAULT_COLUMNS} data={tableData} />
     </section>
   );
 }

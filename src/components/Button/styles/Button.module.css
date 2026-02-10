@@ -42,6 +42,9 @@
   gap: 0.7rem;
   cursor: pointer;
   border-radius: 0.5rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  white-space: nowrap;
 }
 .secondary:hover {
   filter: brightness(0.97);
@@ -51,6 +54,6 @@
   font-size: 0.875rem;
 }
 .secondary.medium {
-  padding: 0.5rem 0.7rem;
+  padding: 0.7rem;
   font-size: 1rem;
 }/*# sourceMappingURL=Button.module.css.map */

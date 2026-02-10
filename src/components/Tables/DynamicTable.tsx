@@ -178,75 +178,96 @@ function DynamicTable({ columns, data, itemsPerPage = 7 }: DynamicTableProps) {
           </tr>
         </thead>
         <tbody>
-          {currentData.map((row) => (
-            <tr key={row.id} className={styles.table_row}>
-              {columns.map((column) => (
-                <td key={column.key} className={column.className}>
-                  {column.render
-                    ? column.render(row, { selectedRows, toggleRowSelection })
-                    : row[column.key]}
-                </td>
-              ))}
+          {currentData.length === 0 ? (
+            <tr className={styles.table_row}>
+              <td
+                className={styles.empty_state_cell}
+                colSpan={Math.max(columns.length, 1)}
+              >
+                <div className={styles.empty_state}>
+                  <div className={styles.empty_state_icon}>
+                    <span className={styles.empty_state_dot} />
+                  </div>
+                  <div className={styles.empty_state_title}>No records yet</div>
+                  <div className={styles.empty_state_text}>
+                    New activity will appear here as it happens.
+                  </div>
+                </div>
+              </td>
             </tr>
-          ))}
+          ) : (
+            currentData.map((row) => (
+              <tr key={row.id} className={styles.table_row}>
+                {columns.map((column) => (
+                  <td key={column.key} className={column.className}>
+                    {column.render
+                      ? column.render(row, { selectedRows, toggleRowSelection })
+                      : row[column.key]}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
 
-      <div className={styles.pagination}>
-        <div className={styles.page_info}>
-          Page {currentPage} of {totalPages}
+      {data.length > 0 && (
+        <div className={styles.pagination}>
+          <div className={styles.page_info}>
+            Page {currentPage} of {totalPages}
+          </div>
+          <div className={styles.pagination_controls}>
+            <button
+              className={styles.page_button}
+              onClick={() => setCurrentPage(1)}
+              disabled={currentPage === 1}
+            >
+              «
+            </button>
+            <button
+              className={styles.page_button}
+              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1}
+            >
+              ‹
+            </button>
+            {renderPaginationButtons()}
+            <button
+              className={styles.page_button}
+              onClick={() =>
+                setCurrentPage(Math.min(totalPages, currentPage + 1))
+              }
+              disabled={currentPage === totalPages}
+            >
+              ›
+            </button>
+            <button
+              className={styles.page_button}
+              onClick={() => setCurrentPage(totalPages)}
+              disabled={currentPage === totalPages}
+            >
+              »
+            </button>
+          </div>
+          <div className={styles.per_page_select}>
+            <DropdownInput
+              type="secondary"
+              options={[
+                {
+                  label: "5 / page",
+                  value: "5",
+                },
+                { label: "7 / page", value: "7" },
+                { label: "10 / page", value: "10" },
+                { label: "20 / page", value: "20" },
+                { label: "50 / page", value: "50" },
+              ]}
+              onSelect={(opt) => setPerPage(Number(opt.value))}
+              position="top-right"
+            />
+          </div>
         </div>
-        <div className={styles.pagination_controls}>
-          <button
-            className={styles.page_button}
-            onClick={() => setCurrentPage(1)}
-            disabled={currentPage === 1}
-          >
-            «
-          </button>
-          <button
-            className={styles.page_button}
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-          >
-            ‹
-          </button>
-          {renderPaginationButtons()}
-          <button
-            className={styles.page_button}
-            onClick={() =>
-              setCurrentPage(Math.min(totalPages, currentPage + 1))
-            }
-            disabled={currentPage === totalPages}
-          >
-            ›
-          </button>
-          <button
-            className={styles.page_button}
-            onClick={() => setCurrentPage(totalPages)}
-            disabled={currentPage === totalPages}
-          >
-            »
-          </button>
-        </div>
-        <div className={styles.per_page_select}>
-          <DropdownInput
-            type="secondary"
-            options={[
-              {
-                label: "5 / page",
-                value: "5",
-              },
-              { label: "7 / page", value: "7" },
-              { label: "10 / page", value: "10" },
-              { label: "20 / page", value: "20" },
-              { label: "50 / page", value: "50" },
-            ]}
-            onSelect={(opt) => setPerPage(Number(opt.value))}
-            position="top-right"
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -5,14 +5,36 @@
   border-radius: 0.5rem;
   min-width: 20rem;
 }
+@media screen and (max-width: 600px) {
+  .search_input {
+    min-width: unset;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 .search_input svg {
   margin-left: 0.7rem;
+}
+@media screen and (max-width: 600px) {
+  .search_input svg {
+    margin-left: 0;
+  }
 }
 .search_input input {
   display: block;
   width: 100%;
   height: 2.5rem;
   padding: 0.5rem;
+}
+@media screen and (max-width: 600px) {
+  .search_input input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .dropdown_input {

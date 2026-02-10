@@ -49,6 +49,8 @@
   gap: 0.7rem;
   cursor: pointer;
   border-radius: 0.5rem;
+  width: fit-content;
+  white-space: nowrap;
 
   &:hover {
     filter: brightness(0.97);
@@ -60,7 +62,7 @@
   }
 
   &.medium {
-    padding: 0.5rem 0.7rem;
+    padding: 0.7rem;
     font-size: 1rem;
   }
 }

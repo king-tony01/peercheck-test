@@ -7,15 +7,18 @@ function Charts({
   engagementData,
   isLoading,
 }: {
-  engagementData: DashboardUserEngagementPoint[];
+  engagementData?: PulseChartData;
   isLoading: boolean;
 }) {
-  const reviewCategoryData = [
-    { category: "Salary", value: 4200, color: "#8CD9EB" },
-    { category: "Institutions", value: 3100, color: "#DCBEF4" },
-    { category: "Culture", value: 6200, color: "#B2E74C" },
-    { category: "Interview", value: 2400, color: "#EBB463" },
-  ];
+  const reviewCategoryColors = ["#8CD9EB", "#DCBEF4", "#B2E74C", "#EBB463"];
+
+  const reviewCategoryData = (engagementData?.totalReviewsByCategory ?? []).map(
+    (item, index) => ({
+      category: item.category,
+      value: item.count,
+      color: reviewCategoryColors[index % reviewCategoryColors.length],
+    }),
+  );
 
   return (
     <section className={styles.charts}>
@@ -23,15 +26,15 @@ function Charts({
         <CurveChart
           title="The Pulse of Peercheck"
           subtitle="User Engagement Overview"
-          data={engagementData}
+          data={engagementData?.pulseData?.data ?? []}
           isLoading={isLoading}
           legends={[
             {
-              label: "Total Users",
+              label: "Total Reviews",
               color: "#BAE54C",
             },
             {
-              label: "Total Reviews",
+              label: "Total Users",
               color: "#91B33C",
             },
           ]}

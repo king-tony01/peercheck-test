@@ -20,11 +20,13 @@ const green = {
 const CustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload || !payload.length) return null;
   const item = payload[0].payload;
+  const users = Number(item.users ?? 0);
+  const reviews = Number(item.reviews ?? 0);
   return (
     <div className={styles.tooltip}>
       {item.highlight
         ? item.highlight
-        : `${item.month} – ${item.users.toLocaleString()} active users`}
+        : `${item.month} – ${users.toLocaleString()} active users • ${reviews.toLocaleString()} reviews`}
     </div>
   );
 };
@@ -120,8 +122,8 @@ function CurveChart({
             axisLine={false}
             tickMargin={12}
             width={40}
-            tickFormatter={(value) => `${value / 1000}k`}
-            ticks={[0, 2000, 4000, 6000, 8000, 10000, 12000]}
+            // tickFormatter={(value) => `${value / 1000}k`}
+            ticks={[0, 10, 30, 50, 70, 90, 110]}
           />
           <Tooltip
             content={<CustomTooltip />}
