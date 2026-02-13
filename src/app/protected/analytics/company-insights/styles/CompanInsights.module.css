@@ -5,6 +5,11 @@
   display: flex;
   gap: 1rem;
 }
+@media screen and (max-width: 600px) {
+  .overview .cards {
+    flex-direction: column;
+  }
+}
 
 .company_insights {
   position: relative;
@@ -14,6 +19,11 @@
   margin: 2rem 0;
   display: grid;
   grid-template-columns: 3fr 1fr;
+}
+@media screen and (max-width: 600px) {
+  .charts {
+    display: block;
+  }
 }
 .charts .bar_charts {
   display: flex;
@@ -25,6 +35,11 @@
   border-radius: 1rem;
   padding: 1.5rem;
   background: #f6f8fa;
+}
+@media screen and (max-width: 600px) {
+  .concern_section {
+    margin: 2rem 0;
+  }
 }
 
 .concern_card {

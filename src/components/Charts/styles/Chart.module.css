@@ -151,4 +151,24 @@
   gap: 1rem;
   width: 100%;
   flex-wrap: wrap;
+}
+
+.pagination_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+.pagination_wrapper button {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgba(199, 199, 199, 0.5019607843);
+}
+.pagination_wrapper button:first-child svg {
+  transform: rotate(180deg);
 }/*# sourceMappingURL=Chart.module.css.map */

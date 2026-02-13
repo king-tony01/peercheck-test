@@ -48,3 +48,13 @@ interface TopIndustry {
   name: any;
   count: number;
 }
+
+interface ReviewVolumeByIndustryData {
+  industry: string;
+  count: number;
+}
+
+interface CoverageDepthByIndustryData {
+  industry: string;
+  count: number;
+}

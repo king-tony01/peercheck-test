@@ -48,6 +48,7 @@ interface TextInputProps {
   value?: string;
   placeholder?: string;
   onChange?: (value: string) => void;
+  onFocus?: () => void;
   type?: "text" | "password" | "email" | "number";
   disabled?: boolean;
   readOnly?: boolean;

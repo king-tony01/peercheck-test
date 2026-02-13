@@ -159,3 +159,27 @@
     flex-wrap: wrap;
   }
 }
+
+.pagination_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+
+  button {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #c7c7c780;
+
+    &:first-child {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

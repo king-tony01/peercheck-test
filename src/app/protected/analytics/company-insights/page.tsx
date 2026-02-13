@@ -17,26 +17,45 @@ import { API_ROUTES } from "@/routes/apiRoutes";
 
 function CompanyInsights() {
   const {
-    data: companyInsightsData,
+    data: reviewVolumeByIndustryData,
     isLoading,
     isError,
-  } = useFetch(API_ROUTES.ANALYTICS_COMPANY_INSIGHTS, {
-    onError: (error) => {
-      console.error("Dashboard user engagement error:", error);
+  } = useFetch<ReviewVolumeByIndustryData[]>(
+    API_ROUTES.ANALYTICS_COMPANY_INSIGHTS_REVIEW_BY_INDUSTRY,
+    {
+      onError: (error) => {
+        console.error("Analytics user insights error:", error);
+      },
     },
-  });
-  console.log("Company insights data:", companyInsightsData);
+  );
 
   const {
-    data: sampleCompaniesData,
-    isLoading: isSampleCompaniesLoading,
-    isError: isSampleCompaniesError,
-  } = useFetch(API_ROUTES.SAMPLE_COMPANIES, {
-    onError: (error) => {
-      console.error("Dashboard companies engagement error:", error);
+    data: coverageDepthData,
+    isLoading: isCoverageDepthLoading,
+    isError: isCoverageDepthError,
+  } = useFetch<CoverageDepthByIndustryData[]>(
+    API_ROUTES.ANALYTICS_COMPANY_INSIGHTS_COVERAGE_DEPTH_BY_INDUSTRY,
+    {
+      onError: (error) => {
+        console.error("Dashboard companies engagement error:", error);
+      },
     },
-  });
-  console.log("Company insights data:", sampleCompaniesData);
+  );
+
+  const reviewCategoryData =
+    reviewVolumeByIndustryData?.map((item) => ({
+      category: item.industry,
+      value: item.count,
+      color: "#E5EBF0",
+    })) || [];
+
+  const coverageDepthCategoryData =
+    coverageDepthData?.map((item) => ({
+      category: item.industry,
+      value: item.count,
+      color: "#E5EBF0",
+    })) || [];
+
   const overviewCards: MetricCard[] = [
     {
       title: "Total Companies Indexed",
@@ -73,21 +92,6 @@ function CompanyInsights() {
       type: "more",
       options: [],
     },
-  ];
-
-  const reviewCategoryData = [
-    { category: "Salary", value: 4200, color: "#E5EBF0" },
-    { category: "Institutions", value: 3100, color: "#E5EBF0" },
-    { category: "Culture", value: 6200, color: "#E5EBF0" },
-    { category: "Interview", value: 200, color: "#E5EBF0" },
-    { category: "Interview", value: 2400, color: "#E5EBF0" },
-    { category: "Interview", value: 3000, color: "#E5EBF0" },
-    { category: "Interview", value: 4400, color: "#E5EBF0" },
-    { category: "Interview", value: 9400, color: "#E5EBF0" },
-    { category: "Interview", value: 10400, color: "#E5EBF0" },
-    { category: "Interview", value: 12400, color: "#E5EBF0" },
-    { category: "Interview", value: 2400, color: "#E5EBF0" },
-    { category: "Interview", value: 5400, color: "#E5EBF0" },
   ];
 
   const concerData = [
@@ -213,15 +217,19 @@ function CompanyInsights() {
                 data={reviewCategoryData}
                 showCartesian
                 showYAxis
+                paginated
+                yAxisTicks={[20, 40, 60, 80, 100]}
               />
             </div>
             <div className={styles.chart}>
               <CustomBarChart
                 title="Company Coverage Depth by industry"
                 subtitle="(Over 20 reviews per company)"
-                data={reviewCategoryData}
+                data={coverageDepthCategoryData}
                 showCartesian
                 showYAxis
+                paginated
+                yAxisTicks={[20, 40, 60, 80, 100]}
               />
             </div>
           </div>
