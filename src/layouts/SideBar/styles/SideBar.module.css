@@ -74,7 +74,7 @@
   border-right: 0.1rem solid #eaeaea;
   padding: 1rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .side_bar {
     border-right: unset;
     position: fixed;

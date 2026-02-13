@@ -5,7 +5,7 @@
   display: flex;
   gap: 1rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .overview .cards {
     flex-direction: column;
   }
@@ -19,7 +19,7 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .charts {
     display: block;
   }
@@ -30,7 +30,7 @@
 .charts .chart:first-child {
   border-right: 0.1rem solid #eaeaea;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .charts .chart:first-child {
     border-right: unset;
     border-bottom: 0.1rem solid #eaeaea;
@@ -47,9 +47,10 @@
   padding: 2rem;
   gap: 1;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .pie_charts {
     display: block;
+    padding: 1rem;
   }
 }
 .pie_charts .pie {
@@ -59,12 +60,13 @@
   border-left: 0.1rem solid #e2e4e9;
   padding-left: 2rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .pie_charts .pie:last-child {
     border-left: unset;
     border-top: 0.1rem solid #e2e4e9;
     padding-left: unset;
-    padding-top: 2rem;
+    padding-top: 1rem;
+    margin-top: 1rem;
   }
 }
 

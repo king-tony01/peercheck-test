@@ -7,7 +7,7 @@
     align-items: center;
     margin-bottom: 1.5rem;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       flex-direction: column;
       width: 100%;
     }
@@ -17,7 +17,7 @@
       align-items: center;
       gap: 0.5rem;
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 768px) {
         width: 100%;
         justify-content: space-between;
       }
@@ -28,7 +28,7 @@
       align-items: center;
       gap: 0.5rem;
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 768px) {
         width: 100%;
         justify-content: space-between;
         margin-top: 1rem;

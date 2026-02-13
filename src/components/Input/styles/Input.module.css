@@ -5,7 +5,7 @@
   border-radius: 0.5rem;
   min-width: 20rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .search_input {
     min-width: unset;
     width: 2.5rem;
@@ -18,7 +18,7 @@
 .search_input svg {
   margin-left: 0.7rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .search_input svg {
     margin-left: 0;
   }
@@ -29,7 +29,7 @@
   height: 2.5rem;
   padding: 0.5rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .search_input input {
     position: absolute;
     opacity: 0;

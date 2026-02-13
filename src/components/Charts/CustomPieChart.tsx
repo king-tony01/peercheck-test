@@ -97,7 +97,9 @@ function CustomPieChart({
         <div className={styles.pie_legend}>
           {data.map((entry, index) => (
             <div key={index} className={styles.pie_legend_item}>
-              <span className={styles.pie_legend_label}>{entry.name}</span>
+              <span className={styles.pie_legend_label}>
+                {entry.name ?? "--"}
+              </span>
               <div className={styles.pie_legend_content}>
                 <div
                   className={styles.pie_legend_dot}
@@ -106,7 +108,7 @@ function CustomPieChart({
                   }}
                 />
                 <span className={styles.pie_legend_value}>
-                  {entry.value.toLocaleString()}
+                  {entry.value.toLocaleString() ?? "--"}
                 </span>
               </div>
             </div>

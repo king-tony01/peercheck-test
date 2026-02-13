@@ -5,7 +5,7 @@
     display: flex;
     gap: 1rem;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       flex-direction: column;
     }
   }
@@ -19,7 +19,7 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     display: block;
   }
 
@@ -29,7 +29,7 @@
     &:first-child {
       border-right: 0.1rem solid #eaeaea;
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 768px) {
         border-right: unset;
         border-bottom: 0.1rem solid #eaeaea;
         overflow: auto;
@@ -47,8 +47,9 @@
   padding: 2rem;
   gap: 1;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     display: block;
+    padding: 1rem;
   }
 
   .pie {
@@ -58,11 +59,12 @@
       border-left: 0.1rem solid #e2e4e9;
       padding-left: 2rem;
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 768px) {
         border-left: unset;
         border-top: 0.1rem solid #e2e4e9;
         padding-left: unset;
-        padding-top: 2rem;
+        padding-top: 1rem;
+        margin-top: 1rem;
       }
     }
   }

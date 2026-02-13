@@ -5,7 +5,7 @@
     display: flex;
     gap: 1rem;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       flex-direction: column;
     }
   }
@@ -20,7 +20,7 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     display: block;
   }
 
@@ -36,7 +36,7 @@
   padding: 1.5rem;
   background: #f6f8fa;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     margin: 2rem 0;
   }
 }

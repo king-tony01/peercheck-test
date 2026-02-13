@@ -21,7 +21,7 @@
   display: flex;
   gap: 1rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .overview .cards {
     flex-direction: column;
   }
@@ -35,7 +35,7 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .charts {
     display: block;
   }
@@ -46,7 +46,7 @@
 .charts .chart:first-child {
   border-right: 0.1rem solid #eaeaea;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .charts .chart:first-child {
     border-right: unset;
     border-bottom: 0.1rem solid #eaeaea;

@@ -8,7 +8,7 @@
   padding: 1rem;
   gap: 2rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .login {
     padding: 0;
   }
@@ -24,7 +24,7 @@
   justify-content: center;
   flex-direction: column;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .login .left {
     border-radius: 0;
     padding: 0;
@@ -73,7 +73,7 @@
   align-items: center;
   justify-content: space-between;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .login .left .bottom {
     padding: 1rem;
   }
@@ -89,7 +89,7 @@
   justify-content: center;
   flex-direction: column;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .login .right {
     display: none;
   }
