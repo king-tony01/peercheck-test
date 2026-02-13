@@ -14,8 +14,10 @@ import CompanyProfileTraffic from "./CompanyProfileTraffic";
 import InfoTriangle from "@/icons/InfoTrangle";
 import useFetch from "@/hooks/useFetch";
 import { API_ROUTES } from "@/routes/apiRoutes";
+import { useWindow } from "@/hooks/useWindow";
 
 function CompanyInsights() {
+  const { width } = useWindow();
   const {
     data: reviewVolumeByIndustryData,
     isLoading,
@@ -168,29 +170,33 @@ function CompanyInsights() {
           ]}
           position="bottom-right"
         />,
-        <DropdownInput
-          key={"002"}
-          type="primary"
-          options={[
-            {
-              label: "All Industries",
-              value: "all_industries",
-            },
-          ]}
-          position="bottom-right"
-        />,
-        <DropdownInput
-          key={"003"}
-          type="primary"
-          options={[
-            {
-              label: "All Locations",
-              value: "all_locations",
-            },
-          ]}
-          position="bottom-right"
-        />,
-      ]}
+        width > 600 ? (
+          <DropdownInput
+            key={"002"}
+            type="primary"
+            options={[
+              {
+                label: "All Industries",
+                value: "all_industries",
+              },
+            ]}
+            position="bottom-right"
+          />
+        ) : null,
+        width > 600 ? (
+          <DropdownInput
+            key={"003"}
+            type="primary"
+            options={[
+              {
+                label: "All Locations",
+                value: "all_locations",
+              },
+            ]}
+            position="bottom-right"
+          />
+        ) : null,
+      ].filter(Boolean)}
       leftNodes={[
         <Button variant="secondary" key={"1"}>
           <ExportIcon /> <span>Export Data</span>
