@@ -27,6 +27,14 @@ function UserInsights() {
     },
   });
 
+  const { data: recentActivity, isLoading: isRecentActivityLoading } = useFetch<
+    RecentActivtyData[]
+  >(API_ROUTES.DASHBOARD_RECENT_ACTIVITY, {
+    onError: (error) => {
+      console.error("Dashboard recent activity error:", error);
+    },
+  });
+
   const hasError = isError;
   const showMetrics = !isLoading && !hasError;
 
@@ -177,6 +185,8 @@ function UserInsights() {
               showCartesian
               showYAxis
               isLoading={isLoading}
+              yAxisTicks={[1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000]}
+              tickFormatter={(tick) => `${tick / 1000}K`}
             />
           </div>
           <div className={styles.chart}>
@@ -207,7 +217,7 @@ function UserInsights() {
             />
           </div>
         </section>
-        <RecentActivity />
+        <RecentActivity recentActivityData={recentActivity ?? []} />
       </div>
     </PageLayout>
   );

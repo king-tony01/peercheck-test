@@ -5,6 +5,11 @@
   display: flex;
   gap: 1rem;
 }
+@media screen and (max-width: 768px) {
+  .overview .cards {
+    flex-direction: column;
+  }
+}
 
 .charts {
   display: grid;
@@ -14,11 +19,23 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 }
+@media screen and (max-width: 768px) {
+  .charts {
+    display: block;
+  }
+}
 .charts .chart {
   padding: 1.5rem;
 }
 .charts .chart:first-child {
   border-right: 0.1rem solid #eaeaea;
+}
+@media screen and (max-width: 768px) {
+  .charts .chart:first-child {
+    border-right: unset;
+    border-bottom: 0.1rem solid #eaeaea;
+    overflow: auto;
+  }
 }
 
 .pie_charts {
@@ -30,12 +47,27 @@
   padding: 2rem;
   gap: 1;
 }
+@media screen and (max-width: 768px) {
+  .pie_charts {
+    display: block;
+    padding: 1rem;
+  }
+}
 .pie_charts .pie {
   flex: 1;
 }
 .pie_charts .pie:last-child {
   border-left: 0.1rem solid #e2e4e9;
   padding-left: 2rem;
+}
+@media screen and (max-width: 768px) {
+  .pie_charts .pie:last-child {
+    border-left: unset;
+    border-top: 0.1rem solid #e2e4e9;
+    padding-left: unset;
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
 }
 
 .recent_activity {
@@ -52,16 +84,33 @@
   width: 100%;
   margin-bottom: 1rem;
 }
+@media screen and (max-width: 500px) {
+  .recent_activity .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
 .recent_activity .header h2 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 500;
   font-family: "Tanker";
 }
+@media screen and (max-width: 500px) {
+  .recent_activity .header h2 {
+    width: 100%;
+  }
+}
 .recent_activity .header .controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+@media screen and (max-width: 500px) {
+  .recent_activity .header .controls {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 .recent_activity .activity_type {
   display: flex;
@@ -80,4 +129,20 @@
 }
 .recent_activity .activity_type .activity_icon svg {
   width: 1.5rem;
+}
+
+.mobile_activity_item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+}
+.mobile_activity_item .first_row,
+.mobile_activity_item .second_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
 }/*# sourceMappingURL=UserInsights.module.css.map */

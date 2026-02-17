@@ -35,12 +35,13 @@ function Dashboard() {
       },
     });
 
-  const { data: recentActivity, isLoading: isRecentActivityLoading } =
-    useFetch<any>(API_ROUTES.DASHBOARD_RECENT_ACTIVITY, {
-      onError: (error) => {
-        console.error("Dashboard recent activity error:", error);
-      },
-    });
+  const { data: recentActivity, isLoading: isRecentActivityLoading } = useFetch<
+    RecentActivtyData[]
+  >(API_ROUTES.DASHBOARD_RECENT_ACTIVITY, {
+    onError: (error) => {
+      console.error("Dashboard recent activity error:", error);
+    },
+  });
 
   const formatChangeLabel = (value?: number) => {
     const safeValue = Number(value ?? 0);
@@ -173,7 +174,7 @@ function Dashboard() {
         engagementData={engagementData ?? undefined}
         isLoading={isEngagementLoading}
       />
-      <RecentActivity recentActivityData={recentActivity} />
+      <RecentActivity recentActivityData={recentActivity ?? []} />
     </PageLayout>
   );
 }

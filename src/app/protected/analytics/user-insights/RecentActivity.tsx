@@ -11,9 +11,19 @@ import ActionDropdown from "@/components/Input/ActionDropdown";
 import FormatStatus from "@/components/wrappers/FormatStatus";
 import UserIcon from "@/icons/UserIcon";
 import CheckBox from "@/components/Input/CheckBox";
+import { useWindow } from "@/hooks/useWindow";
+import MobileTable from "@/components/Tables/MobileTable";
 
-function RecentActivity() {
+function RecentActivity({
+  recentActivityData,
+}: {
+  recentActivityData: RecentActivtyData[];
+}) {
+  const { width } = useWindow();
   const getActivityIcon = (type: string) => {
+    if (type.toLowerCase().includes("review")) {
+      return <ReviewsIcon />;
+    }
     switch (type) {
       case "User":
         return <UserIcon />;
@@ -53,15 +63,15 @@ function RecentActivity() {
       className: styles.description_cell,
     },
     {
-      key: "activityType",
+      key: "logName",
       label: "Activity Type",
       sortable: true,
       render: (row) => (
         <div className={styles.activity_type}>
           <div className={styles.activity_icon}>
-            {getActivityIcon(row.activityType)}
+            {getActivityIcon(row.logName)}
           </div>
-          <span>{row.activityType}</span>
+          <span>{row.logName}</span>
         </div>
       ),
     },
@@ -70,7 +80,7 @@ function RecentActivity() {
       label: "Date",
       sortable: true,
       render: (row) => (
-        <FormatDate date={row.date} options={{ short: false }} />
+        <FormatDate date={row.created_at} options={{ short: false }} />
       ),
     },
     {
@@ -146,6 +156,9 @@ function RecentActivity() {
       status: "Approved",
     },
   ];
+
+  const tableData = recentActivityData ?? [];
+
   return (
     <section className={styles.recent_activity}>
       <div className={styles.header}>
@@ -173,7 +186,51 @@ function RecentActivity() {
           />
         </div>
       </div>
-      <DynamicTable columns={DEFAULT_COLUMNS} data={DEFAULT_DATA} />
+      {width <= 768 ? (
+        <MobileTable
+          headerTitle="Description"
+          showCheckbox={true}
+          emptyTitle="No activity yet"
+          emptyMessage="Recent user activity will appear here"
+          data={tableData.map((row) => ({
+            id: row.id,
+            content: (
+              <div className={styles.mobile_activity_item}>
+                <div className={styles.first_row}>
+                  <p>{row.description}</p>
+                  <ActionDropdown
+                    type="primary"
+                    options={[
+                      {
+                        label: "View Details",
+                        value: "view_details",
+                      },
+                      {
+                        label: "Edit Activity",
+                        value: "edit_activity",
+                      },
+                    ]}
+                  />
+                </div>
+                <div className={styles.second_row}>
+                  <FormatDate
+                    date={row.created_at}
+                    options={{ short: false }}
+                  />
+                  {/* <FormatStatus status={row.status} /> */}
+                </div>
+              </div>
+            ),
+          }))}
+        />
+      ) : (
+        <DynamicTable
+          columns={DEFAULT_COLUMNS}
+          data={tableData}
+          emptyTitle="No activity yet"
+          emptyMessage="Recent user activity will appear here"
+        />
+      )}
     </section>
   );
 }

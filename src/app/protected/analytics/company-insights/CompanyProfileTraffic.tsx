@@ -186,7 +186,12 @@ function CompanyProfileTraffic() {
           />
         </div>
       </div>
-      <DynamicTable columns={DEFAULT_COLUMNS} data={DEFAULT_DATA} />
+      <DynamicTable
+        columns={DEFAULT_COLUMNS}
+        data={DEFAULT_DATA}
+        emptyTitle="No profile traffic data"
+        emptyMessage="Company profile traffic data will appear here"
+      />
     </section>
   );
 }

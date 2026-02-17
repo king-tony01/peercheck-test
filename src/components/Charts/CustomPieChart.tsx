@@ -2,6 +2,7 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import styles from "./styles/Chart.module.css";
+import { useWindow } from "@/hooks/useWindow";
 
 const DEFAULT_COLORS = ["#FF9F0A", "#54CFE9", "#D5A1FD", "#ED62C5", "#38C793"];
 
@@ -26,6 +27,7 @@ function CustomPieChart({
   colors = DEFAULT_COLORS,
   isLoading = false,
 }: CustomPieChartProps) {
+  const { width } = useWindow();
   if (isLoading) {
     return (
       <div className={styles.chart}>
@@ -72,7 +74,7 @@ function CustomPieChart({
       </div>
 
       <div className={styles.pie_container}>
-        <ResponsiveContainer width="50%" height={300}>
+        <ResponsiveContainer width={width < 768 ? "100%" : "50%"} height={300}>
           <PieChart>
             <Pie
               data={data}
@@ -95,7 +97,9 @@ function CustomPieChart({
         <div className={styles.pie_legend}>
           {data.map((entry, index) => (
             <div key={index} className={styles.pie_legend_item}>
-              <span className={styles.pie_legend_label}>{entry.name}</span>
+              <span className={styles.pie_legend_label}>
+                {entry.name ?? "--"}
+              </span>
               <div className={styles.pie_legend_content}>
                 <div
                   className={styles.pie_legend_dot}
@@ -104,7 +108,7 @@ function CustomPieChart({
                   }}
                 />
                 <span className={styles.pie_legend_value}>
-                  {entry.value.toLocaleString()}
+                  {entry.value.toLocaleString() ?? "--"}
                 </span>
               </div>
             </div>

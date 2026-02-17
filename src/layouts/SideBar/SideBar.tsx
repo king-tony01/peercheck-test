@@ -17,7 +17,6 @@ import { usePathname } from "next/navigation";
 import { useCustomNavigation } from "@/hooks/useCustomNavigation";
 
 function SideBar() {
-  const pathname = usePathname();
   const { open, toggleOpen, currentRoute } = useCustomNavigation();
 
   const navList: NavSection[] = [

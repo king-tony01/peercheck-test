@@ -34,9 +34,19 @@ interface DynamicTableProps {
   columns: TableColumn[];
   data: TableRow[];
   itemsPerPage?: number;
+  isLoading?: boolean;
+  emptyTitle?: string;
+  emptyMessage?: string;
 }
 
-function DynamicTable({ columns, data, itemsPerPage = 7 }: DynamicTableProps) {
+function DynamicTable({
+  columns,
+  data,
+  itemsPerPage = 7,
+  isLoading = false,
+  emptyTitle = "No records yet",
+  emptyMessage = "Data will appear here once available",
+}: DynamicTableProps) {
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(itemsPerPage);
@@ -178,20 +188,40 @@ function DynamicTable({ columns, data, itemsPerPage = 7 }: DynamicTableProps) {
           </tr>
         </thead>
         <tbody>
-          {currentData.length === 0 ? (
+          {isLoading ? (
+            <tr className={styles.table_row}>
+              <td
+                className={styles.empty_state_cell}
+                colSpan={Math.max(columns.length, 1)}
+              >
+                <div className={styles.loading_state}>
+                  <div className={styles.spinner} />
+                  <div className={styles.loading_text}>Loading data...</div>
+                </div>
+              </td>
+            </tr>
+          ) : currentData.length === 0 ? (
             <tr className={styles.table_row}>
               <td
                 className={styles.empty_state_cell}
                 colSpan={Math.max(columns.length, 1)}
               >
                 <div className={styles.empty_state}>
-                  <div className={styles.empty_state_icon}>
-                    <span className={styles.empty_state_dot} />
-                  </div>
-                  <div className={styles.empty_state_title}>No records yet</div>
-                  <div className={styles.empty_state_text}>
-                    New activity will appear here as it happens.
-                  </div>
+                  <svg
+                    className={styles.empty_icon}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M9 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-2M9 2v2h6V2M9 2h6"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <div className={styles.empty_state_title}>{emptyTitle}</div>
+                  <div className={styles.empty_state_text}>{emptyMessage}</div>
                 </div>
               </td>
             </tr>

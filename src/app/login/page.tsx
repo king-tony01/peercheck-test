@@ -28,6 +28,10 @@ function Login() {
     email: "",
     password: "",
   });
+  const [touched, setTouched] = useState({
+    email: false,
+    password: false,
+  });
 
   const loginMutation = usePost<
     LoginResponse,
@@ -69,21 +73,21 @@ function Login() {
       });
     },
   });
-  const emailValidation = adminCredential
+  const emailValidation = touched.email
     ? EmailValidator.validate(adminCredential.email)
     : null;
   const emailError =
-    adminCredential && emailValidation && !emailValidation.isValid
+    touched.email && emailValidation && !emailValidation.isValid
       ? emailValidation.errors[0]
       : undefined;
   const isEmailValid = adminCredential
     ? EmailValidator.isValid(adminCredential.email)
     : false;
-  const passwordValidation = adminCredential
+  const passwordValidation = touched.password
     ? PasswordValidator.validate(adminCredential.password)
     : null;
   const passwordError =
-    adminCredential && passwordValidation && !passwordValidation.isValid
+    touched.password && passwordValidation && !passwordValidation.isValid
       ? passwordValidation.errors[0]
       : undefined;
   const isPasswordValid = adminCredential
@@ -137,6 +141,7 @@ function Login() {
               onChange={(value) =>
                 setAdminCredential({ ...adminCredential, email: value })
               }
+              onFocus={() => setTouched((prev) => ({ ...prev, email: true }))}
               error={emailError}
               type="email"
             />
@@ -146,6 +151,9 @@ function Login() {
               value={adminCredential.password}
               onChange={(value) =>
                 setAdminCredential({ ...adminCredential, password: value })
+              }
+              onFocus={() =>
+                setTouched((prev) => ({ ...prev, password: true }))
               }
               error={passwordError}
               type="password"

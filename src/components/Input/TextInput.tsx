@@ -18,6 +18,7 @@ function TextInput({
   warning,
   label,
   helperText,
+  onFocus,
 }: TextInputProps) {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -57,7 +58,10 @@ function TextInput({
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => {
+            setIsFocused(true);
+            onFocus?.();
+          }}
           onBlur={() => setIsFocused(false)}
           disabled={disabled}
           readOnly={readOnly}

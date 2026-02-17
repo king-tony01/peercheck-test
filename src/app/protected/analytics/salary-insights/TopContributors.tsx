@@ -182,7 +182,12 @@ function TopContributors() {
           ))}
         </div>
       </div>
-      <DynamicTable columns={DEFAULT_COLUMNS} data={DEFAULT_DATA} />
+      <DynamicTable
+        columns={DEFAULT_COLUMNS}
+        data={DEFAULT_DATA}
+        emptyTitle="No contributors yet"
+        emptyMessage="Top salary contributors will appear here"
+      />
     </section>
   );
 }

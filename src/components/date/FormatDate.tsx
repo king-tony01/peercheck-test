@@ -1,6 +1,10 @@
 import styles from "./styles/FormatDate.module.css";
 
 function FormatDate({ date, locale = "en-US", options }: DateFormater) {
+  if (!date) {
+    return <span className={styles.format_date}>Invalid date</span>;
+  }
+
   const resolvedDate = typeof date === "string" ? new Date(date) : date;
 
   if (Number.isNaN(resolvedDate.getTime())) {

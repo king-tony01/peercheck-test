@@ -5,16 +5,19 @@
 .filter_button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 10px 16px;
+  width: 2.6rem;
+  height: 2.6rem;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background: #fff;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
   color: #333;
   transition: all 0.2s ease;
+  box-shadow: 0px 1px 2px 0px rgba(82, 88, 102, 0.0588235294);
 }
 .filter_button:hover {
   border-color: #ccc;
@@ -22,10 +25,6 @@
 }
 .filter_button:active {
   border-color: #999;
-}
-.filter_button svg {
-  width: 18px;
-  height: 18px;
 }
 
 .filter_panel {

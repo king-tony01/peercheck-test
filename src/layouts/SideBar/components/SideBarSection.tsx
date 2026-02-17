@@ -2,12 +2,17 @@ import ChevronRight from "@/icons/ChevronRight";
 import Link from "next/link";
 import styles from "../styles/SideBar.module.css";
 import ChevronDown from "@/icons/ChevronDown";
+import { useCustomNavigation } from "@/hooks/useCustomNavigation";
+import { useWindow } from "@/hooks/useWindow";
 
 function SideBarSection({
   sectionTitle,
   items,
   currentPath,
 }: NavSection & { currentPath: string }) {
+  const { toggleOpen } = useCustomNavigation();
+  const { width } = useWindow();
+
   return (
     <section className={styles.side_bar_section}>
       <p className={styles.title}>{sectionTitle}</p>
@@ -20,7 +25,12 @@ function SideBarSection({
           const shouldShowChildren = isActive || hasActiveChild;
           return (
             <li key={path}>
-              <Link href={path}>
+              <Link
+                href={path}
+                onClick={
+                  shouldShowChildren && width <= 768 ? toggleOpen : undefined
+                }
+              >
                 <div
                   style={
                     isActive || hasActiveChild
@@ -58,6 +68,7 @@ function SideBarSection({
                         <Link
                           href={child.path}
                           className={`${styles.child} ${childActive ? styles.active : ""}`}
+                          onClick={width <= 768 ? toggleOpen : undefined}
                         >
                           <span>{child.title}</span>
                         </Link>

@@ -1,6 +1,7 @@
 interface SearchInputProps {
   placeholder?: string;
   onChange?: (value: string) => void;
+  shrink?: boolean;
 }
 
 interface DropdownOption {
@@ -48,6 +49,7 @@ interface TextInputProps {
   value?: string;
   placeholder?: string;
   onChange?: (value: string) => void;
+  onFocus?: () => void;
   type?: "text" | "password" | "email" | "number";
   disabled?: boolean;
   readOnly?: boolean;

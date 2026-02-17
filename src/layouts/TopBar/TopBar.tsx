@@ -12,12 +12,14 @@ import { useAdmin } from "@/context/AdminContext";
 import { useState } from "react";
 import HamburgerIcon from "@/icons/HamburgerIcon";
 import { useCustomNavigation } from "@/hooks/useCustomNavigation";
+import { useWindow } from "@/hooks/useWindow";
 
 function TopBar() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const { clearAdmin } = useAdmin();
   const { open: navOpen, toggleOpen } = useCustomNavigation();
+  const { width } = useWindow();
 
   const logoutMutation = usePost<void, void>(API_ROUTES.LOGOUT_ADMIN, {
     onSuccess: async () => {
@@ -41,7 +43,7 @@ function TopBar() {
         <h1>Welcome Back, Alex</h1>
       </div>
       <div className={styles.top_bar_right}>
-        <SearchInput placeholder="Search" />
+        <SearchInput placeholder="Search" shrink={width <= 768} />
         <button className={styles.action_btn} onClick={() => setOpen(!open)}>
           <Image src="/avatar.svg" alt="User Avatar" width={40} height={40} />
           <ChevronDown />

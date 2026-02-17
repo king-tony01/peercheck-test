@@ -5,6 +5,11 @@
   display: flex;
   gap: 1rem;
 }
+@media screen and (max-width: 768px) {
+  .overview .cards {
+    flex-direction: column;
+  }
+}
 
 .company_insights {
   position: relative;
@@ -15,16 +20,32 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
 }
+@media screen and (max-width: 768px) {
+  .charts {
+    display: block;
+  }
+}
 .charts .bar_charts {
   display: flex;
   gap: 2rem;
   flex-direction: column;
+}
+.charts .bar_charts .chart {
+  background: #fdfdfd;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 0.1rem solid #eaeaea;
 }
 
 .concern_section {
   border-radius: 1rem;
   padding: 1.5rem;
   background: #f6f8fa;
+}
+@media screen and (max-width: 768px) {
+  .concern_section {
+    margin: 2rem 0;
+  }
 }
 
 .concern_card {

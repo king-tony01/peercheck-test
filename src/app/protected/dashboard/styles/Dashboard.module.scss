@@ -24,7 +24,7 @@
     display: flex;
     gap: 1rem;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       flex-direction: column;
     }
   }
@@ -38,7 +38,7 @@
   border: 0.1rem solid #eaeaea;
   margin-top: 2rem;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 768px) {
     display: block;
   }
 
@@ -48,7 +48,7 @@
     &:first-child {
       border-right: 0.1rem solid #eaeaea;
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 768px) {
         border-right: unset;
         border-bottom: 0.1rem solid #eaeaea;
       }
@@ -70,17 +70,31 @@
     width: 100%;
     margin-bottom: 1rem;
 
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     h2 {
       margin: 0;
       font-size: 1.5rem;
       font-weight: 500;
       font-family: "Tanker";
+
+      @media screen and (max-width: 500px) {
+        width: 100%;
+      }
     }
 
     .controls {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+
+      @media screen and (max-width: 500px) {
+        width: 100%;
+        justify-content: space-between;
+      }
     }
   }
 
@@ -103,5 +117,22 @@
         width: 1.5rem;
       }
     }
+  }
+}
+
+.mobile_activity_item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+
+  .first_row,
+  .second_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
   }
 }

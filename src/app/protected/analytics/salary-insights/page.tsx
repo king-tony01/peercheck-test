@@ -534,6 +534,8 @@ function SalaryInsights() {
                 media: { value: 130000, color: "#CCFC54" },
               },
             ]}
+            emptyTitle="No salary matrix data"
+            emptyMessage="Industry and role salary matrix will appear here"
           />
         </section>
         <section className={styles.card_chart_section}>

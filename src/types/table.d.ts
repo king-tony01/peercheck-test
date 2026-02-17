@@ -27,4 +27,22 @@ interface DynamicTableProps {
   columns: TableColumn[];
   data: TableRow[];
   itemsPerPage?: number;
+  isLoading?: boolean;
+  emptyTitle?: string;
+  emptyMessage?: string;
+}
+
+interface MobileTableRow {
+  id: string;
+  content: string | React.ReactNode;
+}
+
+interface MobileTableProps {
+  headerTitle: string;
+  data: MobileTableRow[];
+  showCheckbox?: boolean;
+  itemsPerPage?: number;
+  isLoading?: boolean;
+  emptyTitle?: string;
+  emptyMessage?: string;
 }
