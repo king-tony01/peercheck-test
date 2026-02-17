@@ -7,6 +7,7 @@ export const BACKEND_ROUTES = {
     "/companies/insights/review-volume-by-industry",
   ANALYTICS_COMPANY_INSIGHTS_COVERAGE_DEPTH_BY_INDUSTRY:
     "/companies/insights/company-coverage-depth",
+  ANALYTICS_COMPANY_INSIGHTS_STATS: "/companies/insights/overview",
   ANALYTICS_USERS_INSIGHTS: "/statistics/user-analytics",
   DASHBOARD_RECENT_ACTIVITY: "/logs/recent",
   LOGOUT_ADMIN: "/auth/logout",
@@ -24,6 +25,7 @@ export const API_ROUTES = {
     "/api/analytics/company-insights/review-volume-by-industry",
   ANALYTICS_COMPANY_INSIGHTS_COVERAGE_DEPTH_BY_INDUSTRY:
     "/api/analytics/company-insights/coverage-depth-by-industry",
+  ANALYTICS_COMPANY_INSIGHTS_STATS: "/api/analytics/company-insights/stats",
   ANALYTICS_USERS_INSIGHTS: "/api/analytics/user-insights",
   LOGOUT_ADMIN: "/api/logout",
   SAMPLE_COMPANIES: "/api/companies",

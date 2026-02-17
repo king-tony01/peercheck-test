@@ -119,3 +119,20 @@
     }
   }
 }
+
+.mobile_activity_item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+
+  .first_row,
+  .second_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+  }
+}

@@ -1,5 +1,5 @@
 interface DateFormater {
-  date: string | Date;
+  date?: string | Date;
   locale?: string;
   options?: {
     short?: boolean;

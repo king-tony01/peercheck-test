@@ -58,3 +58,22 @@ interface CoverageDepthByIndustryData {
   industry: string;
   count: number;
 }
+
+interface CompanyInsightsStats {
+  totalCompaniesIndexed: TotalCompaniesIndexed;
+  averageCompanyRating: AverageCompanyRating;
+  mostReviewedCompany: MostReviewedCompany;
+}
+
+interface TotalCompaniesIndexed {
+  count: number;
+  percentageChange: number;
+}
+
+interface AverageCompanyRating {
+  rating: number;
+}
+
+interface MostReviewedCompany {
+  name: string;
+}

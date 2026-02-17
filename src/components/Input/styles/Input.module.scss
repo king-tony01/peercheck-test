@@ -51,6 +51,7 @@
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+  // overflow: hidden;
 
   &.primary {
     background: #f6f8fa;
@@ -72,9 +73,17 @@
   }
 
   .selected {
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+      max-width: 4rem;
+    }
     color: #525866;
     font-weight: 500;
     font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .options {

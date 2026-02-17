@@ -79,3 +79,15 @@ interface TotalReviewsByCategory {
   category: string;
   count: number;
 }
+
+interface RecentActivtyData {
+  id: string;
+  logName: string;
+  event: any;
+  description: string;
+  action: any;
+  model_type: any;
+  model_id: any;
+  meta: any;
+  created_at: string;
+}

@@ -19,6 +19,18 @@ import { useWindow } from "@/hooks/useWindow";
 function CompanyInsights() {
   const { width } = useWindow();
   const {
+    data: statsData,
+    isLoading: isStatsLoading,
+    isError: isStatsError,
+  } = useFetch<CompanyInsightsStats>(
+    API_ROUTES.ANALYTICS_COMPANY_INSIGHTS_STATS,
+    {
+      onError: (error) => {
+        console.error("Analytics company insights error:", error);
+      },
+    },
+  );
+  const {
     data: reviewVolumeByIndustryData,
     isLoading,
     isError,
@@ -26,7 +38,7 @@ function CompanyInsights() {
     API_ROUTES.ANALYTICS_COMPANY_INSIGHTS_REVIEW_BY_INDUSTRY,
     {
       onError: (error) => {
-        console.error("Analytics user insights error:", error);
+        console.error("Analytics company insights error:", error);
       },
     },
   );
@@ -58,12 +70,28 @@ function CompanyInsights() {
       color: "#E5EBF0",
     })) || [];
 
+  const isOverviewLoading = isStatsLoading || (!statsData && !isStatsError);
+
   const overviewCards: MetricCard[] = [
     {
       title: "Total Companies Indexed",
-      value: 36711,
+      value: isStatsError
+        ? "N/A"
+        : (statsData?.totalCompaniesIndexed?.count ?? "--"),
       icon: <UsersIcon />,
-      trend: { direction: "down", percentage: 13.5 },
+      isLoading: isOverviewLoading,
+      trend:
+        statsData?.totalCompaniesIndexed?.percentageChange !== undefined
+          ? {
+              direction:
+                statsData.totalCompaniesIndexed.percentageChange >= 0
+                  ? "up"
+                  : "down",
+              percentage: Math.abs(
+                statsData.totalCompaniesIndexed.percentageChange,
+              ),
+            }
+          : undefined,
       type: "more",
       options: [
         {
@@ -74,23 +102,29 @@ function CompanyInsights() {
     },
     {
       title: "Total Company Page Visits",
-      value: 3681,
+      value: isStatsError ? "N/A" : "--",
       icon: <UsersIcon />,
-      chip: { label: "+312", color: "green" },
+      isLoading: isOverviewLoading,
       type: "more",
       options: [],
     },
     {
       title: "Avg Company Rating",
-      value: 3.8,
+      value: isStatsError
+        ? "N/A"
+        : (statsData?.averageCompanyRating?.rating ?? "--"),
       icon: <UsersIcon />,
+      isLoading: isOverviewLoading,
       type: "more",
       options: [],
     },
     {
       title: "Most Reviewed Company",
-      value: "Opay",
+      value: isStatsError
+        ? "N/A"
+        : (statsData?.mostReviewedCompany?.name ?? "--"),
       icon: <ReviewsIcon />,
+      isLoading: isOverviewLoading,
       type: "more",
       options: [],
     },

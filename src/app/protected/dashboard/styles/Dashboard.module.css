@@ -112,4 +112,20 @@
 }
 .recent_activity .activity_type .activity_icon svg {
   width: 1.5rem;
+}
+
+.mobile_activity_item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+}
+.mobile_activity_item .first_row,
+.mobile_activity_item .second_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
 }/*# sourceMappingURL=Dashboard.module.css.map */

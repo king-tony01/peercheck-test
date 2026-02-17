@@ -60,9 +60,20 @@
   font-weight: 400;
 }
 .dropdown_input .selected {
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .dropdown_input .selected {
+    max-width: 4rem;
+  }
+}
+.dropdown_input .selected {
   color: #525866;
   font-weight: 500;
   font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .dropdown_input .options {
   position: absolute;

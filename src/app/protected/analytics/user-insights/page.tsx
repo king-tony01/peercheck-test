@@ -27,6 +27,14 @@ function UserInsights() {
     },
   });
 
+  const { data: recentActivity, isLoading: isRecentActivityLoading } = useFetch<
+    RecentActivtyData[]
+  >(API_ROUTES.DASHBOARD_RECENT_ACTIVITY, {
+    onError: (error) => {
+      console.error("Dashboard recent activity error:", error);
+    },
+  });
+
   const hasError = isError;
   const showMetrics = !isLoading && !hasError;
 
@@ -209,7 +217,7 @@ function UserInsights() {
             />
           </div>
         </section>
-        <RecentActivity />
+        <RecentActivity recentActivityData={recentActivity ?? []} />
       </div>
     </PageLayout>
   );

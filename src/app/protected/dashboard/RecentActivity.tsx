@@ -14,16 +14,22 @@ import CheckBox from "@/components/Input/CheckBox";
 import { useWindow } from "@/hooks/useWindow";
 import MobileTable from "@/components/Tables/MobileTable";
 
-function RecentActivity({ recentActivityData }: { recentActivityData: any[] }) {
+function RecentActivity({
+  recentActivityData,
+}: {
+  recentActivityData: RecentActivtyData[];
+}) {
   const { width } = useWindow();
   const getActivityIcon = (type: string) => {
+    if (type.toLowerCase().includes("review")) {
+      return <ReviewsIcon />;
+    }
+
     switch (type) {
       case "User":
         return <UserIcon />;
       case "Company":
         return <CompaniesIcon />;
-      case "Review":
-        return <ReviewsIcon />;
       default:
         return null;
     }
@@ -56,15 +62,15 @@ function RecentActivity({ recentActivityData }: { recentActivityData: any[] }) {
       className: styles.description_cell,
     },
     {
-      key: "activityType",
+      key: "logName",
       label: "Activity Type",
       sortable: true,
       render: (row) => (
         <div className={styles.activity_type}>
           <div className={styles.activity_icon}>
-            {getActivityIcon(row.activityType)}
+            {getActivityIcon(row.logName)}
           </div>
-          <span>{row.activityType}</span>
+          <span>{row.logName}</span>
         </div>
       ),
     },
@@ -73,15 +79,15 @@ function RecentActivity({ recentActivityData }: { recentActivityData: any[] }) {
       label: "Date",
       sortable: true,
       render: (row) => (
-        <FormatDate date={row.date} options={{ short: false }} />
+        <FormatDate date={row.created_at} options={{ short: false }} />
       ),
     },
-    {
-      key: "status",
-      label: "Status",
-      sortable: true,
-      render: (row) => <FormatStatus status={row.status} />,
-    },
+    // {
+    //   key: "status",
+    //   label: "Status",
+    //   sortable: true,
+    //   render: (row) => <FormatStatus status={row.status} />,
+    // },
     {
       key: "actions",
       headerClassName: styles.actions_cell,
@@ -160,8 +166,11 @@ function RecentActivity({ recentActivityData }: { recentActivityData: any[] }) {
                   />
                 </div>
                 <div className={styles.second_row}>
-                  <FormatDate date={row.date} options={{ short: false }} />
-                  <FormatStatus status={row.status} />
+                  <FormatDate
+                    date={row.created_at}
+                    options={{ short: false }}
+                  />
+                  {/* <FormatStatus status={row.status} /> */}
                 </div>
               </div>
             ),

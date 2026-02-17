@@ -28,6 +28,13 @@
     display: flex;
     gap: 2rem;
     flex-direction: column;
+
+    .chart {
+      background: #fdfdfd;
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 0.1rem solid #eaeaea;
+    }
   }
 }
 
